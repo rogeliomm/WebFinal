@@ -66,13 +66,21 @@ router.post('/delete/:id',verify, async (req,res) =>{
 
 });
 */
+// TRANSLATE
+router.post('/translate', async (req,res) =>{
+  // Translate logic
+  console.log("translating");
+  res.redirect("/");
+})
+
+
+// LOG IN 
 router.get('/login', async (req,res) => {
   console.log("SECRET: " + secret);
   res.render('login', {title: 'login'})
 } )
 
 router.post('/login', async (req,res) => {
-
   var email = req.body.email;
   var password = req.body.password;
 
@@ -83,37 +91,28 @@ router.post('/login', async (req,res) => {
   }
 
   else {
-
     var valid = await user.validatePassword(password);
-
     if (valid) {
-
       var token = jwt.sign({id:user.email, permission:true},secret, {expiresIn: "1h"  } );
       console.log(token);
       res.cookie("token", token, {httpOnly:true,maxAge: 60000 })
       res.redirect('/');
-
     }
     else {
-
-    console.log("Password is invalid");
-    res.end("Invalid");
+      console.log("Password is invalid");
+      res.end("Invalid");
     }
 
   }
-
   res.redirect('/');
 } )
 
-
+// REGISTER NEW USER
 router.get('/register', async (req,res) => {
   res.render('register', {title: 'register'})
 } )
 
-
-
 router.post('/register', async (req,res) => {
- 
   //console.log(req.body);
   var user = new User(req.body);
   user.password = await user.encryptPassword(user.password);
@@ -121,7 +120,6 @@ router.post('/register', async (req,res) => {
   await user.save();
 
   res.redirect('/');
-
 } )
 
 

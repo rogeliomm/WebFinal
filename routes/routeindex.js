@@ -12,7 +12,12 @@ router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
   //var posts = await Post.find();
   //console.log(posts);
-  let translation = ""
+  var translation = ""
+  var userId = req.userId;
+  var user = await User.findOne({email:userId});
+  console.log(userId);
+  console.log(user);
+
   res.render('index',{title: 'home', translation});
 });
 
@@ -121,7 +126,7 @@ router.post('/register', async (req,res) => {
   user.password = await user.encryptPassword(user.password);
   
   await user.save();
-
+  console.log(user);
   res.redirect('/');
 } )
 

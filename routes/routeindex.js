@@ -12,7 +12,8 @@ router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
   //var posts = await Post.find();
   //console.log(posts);
-  res.render('index',{title: 'home'});
+  let translation = ""
+  res.render('index',{title: 'home', translation});
 });
 
 /*
@@ -70,7 +71,9 @@ router.post('/delete/:id',verify, async (req,res) =>{
 router.post('/translate', async (req,res) =>{
   // Translate logic
   console.log("translating");
-  res.redirect("/");
+  let translation = req.body.text; // -------- Do translation here -------- //
+  //console.log(req.body);
+  res.render('index',{title: 'home', translation});
 })
 
 

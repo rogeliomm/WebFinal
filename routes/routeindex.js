@@ -7,18 +7,19 @@ const jwt = require("jsonwebtoken");
 const verify = require("../middleware/verifyAccess");
 var secret = process.env.LLAVE_SECRETA || "";
 
+var translation = "";
 
 router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
   //var posts = await Post.find();
   //console.log(posts);
-  var translation = ""
   var userId = req.userId;
   var user = await User.findOne({email:userId});
-  console.log(userId);
+  //console.log(userId);
   console.log(user);
-
-  res.render('index',{title: 'home', translation});
+  var name = user.name;
+  var lastname = user.lastname;
+  res.render('index',{title: 'home', translation, name, lastname});
 });
 
 /*
@@ -75,10 +76,27 @@ router.post('/delete/:id',verify, async (req,res) =>{
 // TRANSLATE
 router.post('/translate', async (req,res) =>{
   // Translate logic
+  /*
   console.log("translating");
   let translation = req.body.text; // -------- Do translation here -------- //
   //console.log(req.body);
-  res.render('index',{title: 'home', translation});
+  var userId = req.userId;
+
+  console.log(req);
+  //console.log(user);
+
+  var user = await User.findOne({email:userId});
+  
+  var name = user.name;
+  var lastname = user.lastname;
+  res.render('index',{title: 'home', translation, name, lastname});
+  */
+
+  console.log("translating");
+  translation = req.body.text; // -------- Do translation here -------- //
+  console.log(translation);
+
+  res.redirect('/');
 })
 
 

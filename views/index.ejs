@@ -7,12 +7,13 @@
       <div class="blog-post">
         <h2 class="blog-post-title">Translate</h2>
         <form action="/translate" method="POST">
-          <div class="form-group">
+          <!--<div class="form-group">
             <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
-          </div>
+          </div>-->
+          <p class="user-data">Name: <%= name%> Lastname: <%= lastname%></p>
           <div class="form-group">
             <textarea class="form-control" name="text" cols="100" rows="10"
-              placeholder="Add a Description"></textarea>
+              placeholder="Add a Translation"></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Translate</button>
         </form>

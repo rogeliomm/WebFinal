@@ -41,10 +41,26 @@
     -->
     <label for="inputName" class="">Name</label>
     <input type="name" id="inputName" class="form-control" name="name" placeholder="Name" value= "<%= name%>">
+
     <label for="inputLastName" class="">Last Name</label>
     <input type="lastname" id="inputLastName" class="form-control" name="lastname" placeholder="Lastname" value= "<%= lastname%>">
-    <label for="inputLastName" class="">Mode</label>
-    <input type="mode" id="inputLastName" class="form-control" name="mode" placeholder="Mode" value= "<%= mode%>">
+    <!--
+    <label for="inputMode" class="">Mode</label>
+    <input type="mode" id="inputMode" class="form-control" name="mode" placeholder="Mode" value= "<%= mode%>">
+    -->
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Theme</label>
+        <select class="form-control" name="mode">
+        <% if (mode == 'light') { %>
+          <option selected>light</option>
+          <option>dark</option>
+        <% } else {%>
+          <option>light</option>
+          <option selected>dark</option>
+        <% } %>
+        </select>
+      </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Confirm</button>
     <a href="/delete/<%= id%>" class="btn btn-lg btn-secondary btn-block" role="button">Delete User</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>

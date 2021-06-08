@@ -13,13 +13,14 @@ router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
   //var posts = await Post.find();
   //console.log(posts);
-  var userId = req.userId;
-  var user = await User.findOne({email:userId});
+  var email = req.userId;
+  var user = await User.findOne({email:email});
   //console.log(userId);
   console.log(user);
   var name = user.name;
   var lastname = user.lastname;
-  res.render('index',{title: 'home', translation, name, lastname});
+  var id = user._id;
+  res.render('index',{title: 'home', translation, name, lastname, id});
 });
 
 /*
@@ -92,9 +93,7 @@ router.post('/translate', async (req,res) =>{
   res.render('index',{title: 'home', translation, name, lastname});
   */
 
-  console.log("translating");
   translation = req.body.text; // -------- Do translation here -------- //
-  console.log(translation);
 
   res.redirect('/');
 })
@@ -121,7 +120,7 @@ router.post('/login', async (req,res) => {
     if (valid) {
       var token = jwt.sign({id:user.email, permission:true},secret, {expiresIn: "1h"  } );
       console.log(token);
-      res.cookie("token", token, {httpOnly:true,maxAge: 60000 })
+      res.cookie("token", token, {httpOnly:true,maxAge: 600000 })
       res.redirect('/');
     }
     else {
@@ -149,12 +148,31 @@ router.post('/register', async (req,res) => {
 } )
 
 // USER CONFIGURATION
-router.get('/config', async (req, res) => {
-  res.render('config');
+router.get('/config/:id', async (req, res) => {
+  var {id} = req.params;
+  console.log(id);
+  var user = await User.findOne({_id:id});
+  var email = user.email;
+  var password = user.password;
+  var name = user.name;
+  var lastname = user.lastname;
+  res.render('config', {id, email, password, name, lastname});
 })
 
-router.post('/config', async (req, res) => {
+router.post('/config/:id', async (req, res) => {
+  var {id} = req.params;
+  var user = await User.findOne({_id:id});
+  user.name = req.body.name;
+  user.lastname = req.body.lastname;
+  await user.save();
   res.redirect('/');
+})
+
+// DELETE USER
+router.get('/delete/:id', async (req, res) => {
+  var {id} = req.params;
+  await User.deleteOne({_id:id});
+  res.redirect('/login');
 })
 
 module.exports = router;

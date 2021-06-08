@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-      <title>Blog Template for Bootstrap</title>
+      <title>Traductor</title>
   
       <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
   
@@ -32,32 +32,35 @@
 
 <main role="main" class="container">
   <div class="col">
-    <div class="col-md-8 blog-main">
-      <div class="blog-post">
-        <h2 class="blog-post-title">Translate</h2>
-        <form action="/translate" method="POST">
-          <!--<div class="form-group">
-            <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
-          </div>-->
-          <p class="user-data">Name: <%= name%> Lastname: <%= lastname%></p>
-          <div class="form-group">
-            <textarea class="form-control" name="text" cols="100" rows="10"
-              placeholder="Add a Translation"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Translate</button>
-        </form>
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <div class="col">
+          <div class="row">
+            <h2 class="blog-post-title">Translate</h2>
+          </div> 
+          <form action="/translate" method="POST">
+            <!--<div class="form-group">
+              <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
+            </div>-->
+            <p class="user-data">Name: <%= name%> Lastname: <%= lastname%></p>
+            <div class="form-group">
+              <textarea class="form-control" name="text" cols="100" rows="10"
+                placeholder="Add a Translation"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Translate</button>
+          </form>
+        </div>
+      </div>
+
+      <div class = "translation-result">
+        <h2 class = "translation-result-title">Result:</h2>
+        <p class = "translation-result-data"><%= translation %></p>
       </div>
     </div>
-
-    <div class = "translation-result">
-      <h2 class = "translation-result-title">Result:</h2>
-      <p class = "translation-result-data"><%= translation %></p>
+    <div>
+      <a href="/config/<%= id%>" class="btn btn-lg btn-secondary" role="button">Configuration</a>
+      <a href="/login" class="btn btn-lg btn-danger" role="button">Log Out</a>
     </div>
-
-    <div class = "configuration">
-      <a href="/config/<%= id%>" class="btn btn-lg btn-secondary btn-block" role="button">Configuration</a>
-    </div>
-
   </div>
 </main>
 

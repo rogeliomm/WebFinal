@@ -102,6 +102,7 @@ router.post('/translate', async (req,res) =>{
 
 // LOG IN 
 router.get('/login', async (req,res) => {
+  translation = "";
   console.log("SECRET: " + secret);
   res.render('login', {title: 'login'})
 } )

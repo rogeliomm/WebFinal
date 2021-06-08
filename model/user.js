@@ -6,6 +6,7 @@ const UserSchema = Schema ({
     password: String,
     name: String,
     lastname: String,
+    mode: String,
 });
 
 UserSchema.methods.encryptPassword = async function(password){

@@ -20,7 +20,8 @@ router.get('/',verify ,async function(req,res){
   var name = user.name;
   var lastname = user.lastname;
   var id = user._id;
-  res.render('index',{title: 'home', translation, name, lastname, id});
+  var mode = user.mode;
+  res.render('index',{title: 'home', translation, name, lastname, id, mode});
 });
 
 /*
@@ -141,6 +142,7 @@ router.post('/register', async (req,res) => {
   //console.log(req.body);
   var user = new User(req.body);
   user.password = await user.encryptPassword(user.password);
+  user.mode = 'light';
   
   await user.save();
   console.log(user);
@@ -156,7 +158,8 @@ router.get('/config/:id', async (req, res) => {
   var password = user.password;
   var name = user.name;
   var lastname = user.lastname;
-  res.render('config', {id, email, password, name, lastname});
+  var mode = user.mode;
+  res.render('config', {id, email, password, name, lastname, mode});
 })
 
 router.post('/config/:id', async (req, res) => {
@@ -164,6 +167,7 @@ router.post('/config/:id', async (req, res) => {
   var user = await User.findOne({_id:id});
   user.name = req.body.name;
   user.lastname = req.body.lastname;
+  user.mode = req.body.mode;
   await user.save();
   res.redirect('/');
 })

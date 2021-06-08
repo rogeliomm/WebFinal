@@ -148,5 +148,13 @@ router.post('/register', async (req,res) => {
   res.redirect('/');
 } )
 
+// USER CONFIGURATION
+router.get('/config', async (req, res) => {
+  res.render('config');
+})
+
+router.post('/config', async (req, res) => {
+  res.redirect('/');
+})
 
 module.exports = router;

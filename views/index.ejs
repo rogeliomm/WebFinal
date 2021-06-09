@@ -38,7 +38,7 @@
           <div class="row">
             <h2 class="blog-post-title">Translate</h2>
           </div> 
-          <form action="/translate" method="POST">
+          <form action="/translate/<%= id%>" method="POST">
             <!--<div class="form-group">
               <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
             </div>-->
@@ -57,6 +57,15 @@
         <p class = "translation-result-data"><%= translation %></p>
       </div>
     </div>
+
+    <div class="col">
+      <h3 class="subtitle">History</h2>
+      <% for (var i = history.length - 1, max = 10; i >= 0 && max > 0; i--, max--){ %>
+        <p><%= history[i] %></p>
+      <% } %>
+
+    </div>
+
     <div>
       <a href="/config/<%= id%>" class="btn btn-lg btn-secondary" role="button">Configuration</a>
       <a href="/login" class="btn btn-lg btn-danger" role="button">Log Out</a>

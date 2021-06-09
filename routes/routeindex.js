@@ -8,20 +8,19 @@ const verify = require("../middleware/verifyAccess");
 var secret = process.env.LLAVE_SECRETA || "";
 
 var translation = "";
+var toTranslate = "";
 
 router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
-  //var posts = await Post.find();
-  //console.log(posts);
   var email = req.userId;
   var user = await User.findOne({email:email});
-  //console.log(userId);
   console.log(user);
   var name = user.name;
   var lastname = user.lastname;
   var id = user._id;
   var mode = user.mode;
-  res.render('index',{title: 'home', translation, name, lastname, id, mode});
+  var history = user.history;
+  res.render('index',{title: 'home', translation, name, lastname, id, mode, history});
 });
 
 /*
@@ -76,7 +75,7 @@ router.post('/delete/:id',verify, async (req,res) =>{
 });
 */
 // TRANSLATE
-router.post('/translate', async (req,res) =>{
+router.post('/translate/:id', async (req,res) =>{
   // Translate logic
   /*
   console.log("translating");
@@ -93,8 +92,15 @@ router.post('/translate', async (req,res) =>{
   var lastname = user.lastname;
   res.render('index',{title: 'home', translation, name, lastname});
   */
+  var {id} = req.params;
+  var user = await User.findOne({_id:id});
+  if (toTranslate !== ''){
+    user.history.push(toTranslate);
+    await user.save();
+  }
 
-  translation = req.body.text; // -------- Do translation here -------- //
+  toTranslate = req.body.text; 
+  translation = toTranslate;// -------- Do translation here -------- //
 
   res.redirect('/');
 })
@@ -103,6 +109,7 @@ router.post('/translate', async (req,res) =>{
 // LOG IN 
 router.get('/login', async (req,res) => {
   translation = "";
+  toTranslate = "";
   console.log("SECRET: " + secret);
   res.render('login', {title: 'login'})
 } )

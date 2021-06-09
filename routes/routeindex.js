@@ -76,6 +76,20 @@ router.post('/delete/:id',verify, async (req,res) =>{
 */
 // TRANSLATE
 router.post('/translate/:id', async (req,res) =>{
+  
+  var input = req.body.text;
+  var translationImages = [""];
+
+  for(var i=0; i < input.length; i++)
+  {
+    if(input[i] != " " || input[i] != "\n")
+    {
+      var imageName = input[i].concat(".png");
+      translationImages[i] = imageName;
+    }
+
+  }
+  
   // Translate logic
   /*
   console.log("translating");

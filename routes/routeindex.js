@@ -94,13 +94,14 @@ router.post('/translate/:id', async (req,res) =>{
   */
   var {id} = req.params;
   var user = await User.findOne({_id:id});
+
+  toTranslate = req.body.text; 
+  translation = toTranslate;// -------- Do translation here -------- //
+
   if (toTranslate !== ''){
     user.history.push(toTranslate);
     await user.save();
   }
-
-  toTranslate = req.body.text; 
-  translation = toTranslate;// -------- Do translation here -------- //
 
   res.redirect('/');
 })
@@ -154,7 +155,7 @@ router.post('/register', async (req,res) => {
   
   await user.save();
   console.log(user);
-  res.redirect('/');
+  res.redirect('/login');
 } )
 
 // USER CONFIGURATION

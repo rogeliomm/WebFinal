@@ -6,9 +6,15 @@ const User = require('../model/user');
 const jwt = require("jsonwebtoken");
 const verify = require("../middleware/verifyAccess");
 var secret = process.env.LLAVE_SECRETA || "";
+const path = require('path');
+const app = express();
 
-var translation = "";
+app.use(express.static(path.join(__dirname, 'public')))
+
+var translation = [];
 var toTranslate = "";
+var suffix = ".png";
+var preffix = "/images/";
 
 router.get('/',verify ,async function(req,res){
   //console.log("User id: " + req.userId);
@@ -20,60 +26,9 @@ router.get('/',verify ,async function(req,res){
   var id = user._id;
   var mode = user.mode;
   var history = user.history;
-  res.render('index',{title: 'home', translation, name, lastname, id, mode, history});
+  res.render('index',{title: 'home', translation, suffix, preffix, name, lastname, id, mode, history});
 });
 
-/*
-router.get('/newPost',verify, async (req,res) =>{
-  res.render('newPost',{ title: 'newPost', author:req.userId});
-});
-
-
-
-
-router.post('/newPost',verify, async (req,res) =>{
- 
-  console.log(req.body);
-  var post = new Post(req.body);
-  await post.save();
-  res.redirect("/");
-
-});
-
-
-router.get('/edit/:id',verify, async (req,res) =>{
- 
-var {id} = req.params;
-var post = await Post.findById(id);
-res.render('edit',{post, title: 'edit'})
- 
- });
-
-
- router.post('/edit/:id',verify, async (req,res) =>{
- 
-  var {id} = req.params;
-  await Post.update({_id:id}, req.body);
-  res.redirect("/");
-
-});
-
-router.get('/delete/:id',verify, async (req,res) =>{
- 
-  var {id} = req.params;
-  var post = await Post.findById(id);
-  res.render('delete',{post,title: 'delete'})
-   
-});
-
-router.post('/delete/:id',verify, async (req,res) =>{
- 
-  var {id} = req.params;
-  await Post.deleteOne({_id:id})
-  res.redirect("/");
-
-});
-*/
 // TRANSLATE
 router.post('/translate/:id', async (req,res) =>{
   
@@ -90,27 +45,11 @@ router.post('/translate/:id', async (req,res) =>{
 
   }
   
-  // Translate logic
-  /*
-  console.log("translating");
-  let translation = req.body.text; // -------- Do translation here -------- //
-  //console.log(req.body);
-  var userId = req.userId;
-
-  console.log(req);
-  //console.log(user);
-
-  var user = await User.findOne({email:userId});
-  
-  var name = user.name;
-  var lastname = user.lastname;
-  res.render('index',{title: 'home', translation, name, lastname});
-  */
   var {id} = req.params;
   var user = await User.findOne({_id:id});
 
   toTranslate = req.body.text; 
-  translation = toTranslate;// -------- Do translation here -------- //
+  translation = toTranslate;
 
   if (toTranslate !== ''){
     user.history.push(toTranslate);

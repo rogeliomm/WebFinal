@@ -55,7 +55,8 @@
       <div class = "translation-result">
         <h2 class = "translation-result-title">Result:</h2><p>
           <% for (var i = 0; i < translation.length; i++){ %>
-            <% if (translation[i] != ' ') {%>
+            <% var letterNumber = /^[1-9a-zA-Z]+$/i; %>
+            <% if (translation[i].match(letterNumber)) {%>
             <img src= <%= preffix.concat(translation[i], suffix) %> width="44" height="100">
             <% } %>
           <% } %></p>

@@ -32,18 +32,23 @@ router.get('/',verify ,async function(req,res){
 // TRANSLATE
 router.post('/translate/:id', async (req,res) =>{
   
+  /*
   var input = req.body.text;
   var translationImages = [""];
+  
+  var letterNumber = /^[1-9a-zA-Z]+$/i;
 
   for(var i=0; i < input.length; i++)
   {
-    if(input[i] != " " || input[i] != "\n")
+    if(letterNumber.test(input[i]))
     {
+      console.log(input[i]);
       var imageName = input[i].concat(".png");
-      translationImages[i] = imageName;
+      translationImages.push(imageName);
     }
 
   }
+  */
   
   var {id} = req.params;
   var user = await User.findOne({_id:id});

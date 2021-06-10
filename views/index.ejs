@@ -42,7 +42,8 @@
             <!--<div class="form-group">
               <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
             </div>-->
-            <p class="user-data">Name: <%= name%> Lastname: <%= lastname%></p>
+            <h5 class="user-data">Name: <%= name%></h5>
+            <h5 class="user-data">Lastname: <%= lastname%></h5>
             <div class="form-group">
               <textarea class="form-control" name="text" cols="100" rows="10"
                 placeholder="Add a Translation"></textarea>
@@ -52,8 +53,8 @@
         </div>
       </div>
 
-      <div class = "translation-result">
-        <h2 class = "translation-result-title">Result:</h2><p>
+      <div class = "translation-result border border-dark rounded">
+        <h2 class = "translation-result-title rounded">Result:</h2><p>
           <% for (var i = 0; i < translation.length; i++){ %>
             <% var letterNumber = /^[1-9a-zA-Z]+$/i; %>
             <% if (translation[i].match(letterNumber)) {%>
@@ -62,6 +63,7 @@
           <% } %></p>
       </div>
     </div>
+    <hr>
 
     <div class="col">
       <h3 class="subtitle">History</h2>

@@ -1,0 +1,13 @@
+html, body {
+    background-color: powderblue; /* cambiar a mejores colores*/
+    color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
